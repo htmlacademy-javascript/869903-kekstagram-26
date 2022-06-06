@@ -1,60 +1,60 @@
-"use strict";
 //Закрытие и открытие модального окна
-let buttonModal = document.querySelector('#upload-file');
-let popupImg = document.querySelector('.img-upload__overlay');
-let closePopupImg = document.querySelector('.img-upload__cancel');
-let body = document.querySelector('body');
+const buttonModal = document.querySelector('#upload-file');
+const popupImg = document.querySelector('.img-upload__overlay');
+const closePopupImg = document.querySelector('.img-upload__cancel');
+const body = document.querySelector('body');
 
-buttonModal.addEventListener('click', function () {
+buttonModal.addEventListener('click', () => {
   popupImg.classList.remove('hidden');
-  body.classList.add('modal-open')
+  body.classList.add('modal-open');
 });
-closePopupImg.addEventListener('click', function () {
+closePopupImg.addEventListener('click', () => {
   popupImg.classList.add('hidden');
-  body.classList.remove('modal-open')
+  body.classList.remove('modal-open');
 });
-document.addEventListener('keydown', function (evt) {
+document.addEventListener('keydown', (evt) => {
   if (evt.keyCode === 27) {
     popupImg.classList.add('hidden');
-    body.classList.remove('modal-open')
+    body.classList.remove('modal-open');
   }
 });
 
 //Уменьшение и увеличение размера изображения
-let less = document.querySelector('.scale__control--smaller');
-let more = document.querySelector('.scale__control--bigger');
-let sizeValue = document.querySelector('.scale__control--value');
-let imgPreview = document.querySelector('.img-upload__preview');
+const less = document.querySelector('.scale__control--smaller');
+const more = document.querySelector('.scale__control--bigger');
+const sizeValue = document.querySelector('.scale__control--value');
+const imgPreview = document.querySelector('.img-upload__preview');
 
 less.onclick = function () {
-  if (parseInt(sizeValue.value) > 0) {
-    sizeValue.value = parseInt(sizeValue.value) - 25 + '%';
-    imgPreview.style.transform = 'scale(' + sizeValue.value + ')';
+  if (parseInt(sizeValue.value, 10) > 0) {
+    sizeValue.value = `${parseInt(sizeValue.value, 10) - 25  }%`;
+    imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
-}
+};
 more.onclick = function () {
-  if (parseInt(sizeValue.value) < 100) {
-    sizeValue.value = parseInt(sizeValue.value) + 25 + '%';
-    imgPreview.style.transform = 'scale(' + sizeValue.value + ')';
+
+  if (parseInt(sizeValue.value, 10) < 100) {
+    sizeValue.value = `${parseInt(sizeValue.value, 10) + 25  }%`;
+    imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
-}
+};
 
 //Добавляем эффект на картинку
-let effectsRadio = document.querySelectorAll('.effects__radio');
-let img = document.querySelector('img');
-let effectsPreview = document.querySelectorAll('.effects__preview');
+const effectsRadio = document.querySelectorAll('.effects__radio');
+const img = document.querySelector('img');
+const effectsPreview = document.querySelectorAll('.effects__preview');
 for (let i = 0; i < effectsRadio.length; i++) {
-  for (let i = 0; i < effectsPreview.length; i++) {
+  for (let j = 0; j < effectsPreview.length; j++) {
     effectsRadio[i].onchange = function () {
       img.classList.remove(img.classList[0]);
-      img.classList.add(effectsPreview[i].classList[1])
-    }
+      img.classList.add(effectsPreview[j].classList[1]);
+    };
   }
 }
 
 //Настройка слайдера
-let slider = document.getElementById('slider');
-let filter = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+const slider = document.getElementById('slider');
+const filter = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
 
 noUiSlider.create(slider, {
   start: 1,
@@ -67,29 +67,23 @@ noUiSlider.create(slider, {
 });
 
 
-  slider.noUiSlider.on('update', function () {
-    for (let i = 0; i < filter.length; i++) {
-      for (let j = 0; j < effectsRadio.length; j++) {
-            img.style.filter = effectsRadio[j].value + '(' + slider.noUiSlider.get() + ')';
-            console.log(effectsRadio[j].value);
-      }
+slider.noUiSlider.on('update', () => {
+  for (let i = 0; i < filter.length; i++) {
+    for (let j = 0; j < effectsRadio.length; j++) {
+      img.style.filter = `${effectsRadio[j].value  }(${  slider.noUiSlider.get()  })`;
     }
-  })
-
+  }
+});
 
 
 // Проверяем длину комментария
-let commentInput = document.querySelector('.text__description');
+const commentInput = document.querySelector('.text__description');
 
-  let getLengthComment = commentInput.oninput = function (textarea, amount) {
-    textarea = commentInput;
-    amount = 139;
+const getLengthComment = commentInput.oninput = function (textarea, amount) {
+  textarea = commentInput;
+  amount = 139;
   if (textarea.value.length > amount) {
     commentInput.maxLength = '';
   }
-}
+};
 getLengthComment();
-
-
-
-
