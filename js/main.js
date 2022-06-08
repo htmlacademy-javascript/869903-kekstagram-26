@@ -90,58 +90,76 @@ getLengthComment();
 
 //Генерируем случайные объекты
 const getRandomPositiveInteger = (a, b) => {
-  const random = [];
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
-      return Math.floor(result);
+  return Math.floor(result);
 };
 
-const MIN_VALUE_OF_ID = 1;
-const MAX_VALUE_OF_ID = 25;
+const SIMILAR_OBJECT_COUNT = 25;
 
-const MIN_VALUE_OF_LIKES = 15;
-const MAX_VALUE_OF_LIKES = 200;
-
-const DESCRIPTION = [
-  'Сидим с Кексом на пляже, учимся создавать рандом'
+const DESC = [
+  'Сидим с Кексом на пляже, учимся делать рандом',
+  'Ловим мух',
+  'Готовимся к полуночным тыг-дык'
 ];
 
-const COMMENTS = [
-  {
-    id: getRandomPositiveInteger(1,1000),
-    avatar: 'img/avatar' + getRandomPositiveInteger(1,6) + '.svg',
-    message: 'Всё отлично!',
-    name: 'Dasha'
-  },
-  {
-    id: getRandomPositiveInteger(1, 1000),
-    avatar: 'img/avatar' + getRandomPositiveInteger(1,6) + '.svg',
-    message: 'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-    name: 'Misha'
-  },
-  {
-    id: getRandomPositiveInteger(1, 1000),
-    avatar: 'img/avatar' + getRandomPositiveInteger(1,6) + '.svg',
-    message: 'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
-    name: 'Alex'
+const MIN_VALUE_LIKES = 15;
+const MAX_VALUE_LIKES = 200;
+
+const MESSAGE = [
+  'Всё отлично!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+
+const NAME = [
+  'Мария',
+  'Федор',
+  'Иван'
+];
+
+const mainId = Array.from({length: SIMILAR_OBJECT_COUNT}, (v, i) =>  i + 1);
+
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
+
+const shuffle = (array) => {
+  let currentIndex = array.length, temporaryValue, randomIndex;
+  while (0 !== currentIndex) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
   }
-]
-const SIMILAR_OBJECT_COUNT = 10;
-
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomPositiveInteger(0, elements.length - 1)];
+  return array;
 };
 
-const createObject = () => {
-  return {
-    id: getRandomPositiveInteger(MIN_VALUE_OF_ID ,MAX_VALUE_OF_ID),
-    url: 'photos/' + getRandomPositiveInteger(1, 25) + 'jpg',
-    desc: getRandomArrayElement(DESCRIPTION),
-    likes: getRandomPositiveInteger(MIN_VALUE_OF_LIKES, MAX_VALUE_OF_LIKES),
-    comments: getRandomArrayElement(COMMENTS),
-  };
-};
+const idComments = [];
+for (let i = 0; i < SIMILAR_OBJECT_COUNT; i++) {
+  idComments.push(i);
+  shuffle(idComments);
+}
 
-const CREATE_OBJECTS = Array.from({length: SIMILAR_OBJECT_COUNT}, createObject);
-console.log(CREATE_OBJECTS)
+const createComments = () => ({
+  id: getRandomArrayElement(idComments),
+  avatar: `img/${getRandomPositiveInteger(1, 6)}.svg`,
+  message: getRandomArrayElement(MESSAGE),
+  name: getRandomArrayElement(NAME),
+});
+
+const currentComments = Array.from({length: SIMILAR_OBJECT_COUNT}, createComments);
+
+const createObjectPhotos = () => ({
+  id: getRandomArrayElement(mainId),
+  url: `photos/${getRandomPositiveInteger(1,25)}.svg`,
+  description: getRandomArrayElement(DESC),
+  likes: getRandomPositiveInteger(MIN_VALUE_LIKES, MAX_VALUE_LIKES),
+  comments: getRandomArrayElement(currentComments)
+});
+
+const objectPhotos = Array.from({length: SIMILAR_OBJECT_COUNT}, createObjectPhotos);
+console.log(objectPhotos);
