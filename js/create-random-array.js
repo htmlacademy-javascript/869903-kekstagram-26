@@ -43,14 +43,13 @@ const createComments = () => ({
   name: getRandomItemRepeat(NAME),
 });
 
-const currentComments = Array.from({length: SIMILAR_OBJECT_COUNT}, createComments);
-
-const createObjectPhotos = () => Array.from({length: SIMILAR_OBJECT_COUNT}, () => ({
+const createObjectPhoto = () => ({
   id: getRandomItemNoRepeat(mainId),
-  url: `photos/${getRandomItemNoRepeat(photoUrl)}.svg`,
+  url: `photos/${getRandomItemNoRepeat(photoUrl)}.jpg`,
   description: getRandomItemRepeat(DESC),
   likes: getRandomValue(MIN_VALUE_LIKES, MAX_VALUE_LIKES),
-  comments: getRandomItemNoRepeat(currentComments)
-}));
+  comments: Array.from({ length: getRandomValue(MIN_VALUE_LIKES, MAX_VALUE_LIKES) }, createComments),
+});
 
-createObjectPhotos();
+const createObjectPhotos = () => Array.from({length: SIMILAR_OBJECT_COUNT}, createObjectPhoto);
+export {createObjectPhotos};
