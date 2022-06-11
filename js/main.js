@@ -3,3 +3,4 @@ import './start.js';
 import './photo-setting.js';
 import './form.js';
 import './miniatures.js';
+import './full-photo.js';

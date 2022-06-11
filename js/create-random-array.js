@@ -38,7 +38,7 @@ for (let i = 0; i < SIMILAR_OBJECT_COUNT; i++) {
 
 const createComments = () => ({
   id: getRandomItemNoRepeat(idComments),
-  avatar: `img/${getRandomValue(1, 6)}.svg`,
+  avatar: `img/avatar-${getRandomValue(1, 6)}.svg`,
   message: getRandomItemRepeat(MESSAGE),
   name: getRandomItemRepeat(NAME),
 });
