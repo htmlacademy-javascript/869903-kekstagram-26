@@ -1,9 +1,12 @@
+import {isEscapeKey} from './util.js';
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const commentsCount = bigPicture.querySelector('.comments-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const commentsBlock = bigPicture.querySelector('.social__comments');
+const commentImageSize = 35;
 
 const getCreateComment = (comment) => {
   const newComment  = document.createElement('li');
@@ -12,8 +15,8 @@ const getCreateComment = (comment) => {
   commentImage.classList.add('social__picture');
   commentImage.src = comment.avatar;
   commentImage.alt = comment.name;
-  commentImage.width = 35;
-  commentImage.height = 35;
+  commentImage.width = commentImageSize;
+  commentImage.height = commentImageSize;
   newComment.appendChild(commentImage);
 
   const commentText = document.createElement('p');
@@ -50,7 +53,7 @@ const openBigPicture = (photo) => {
     commentsCount.classList.remove('hidden');
   });
   document.addEventListener('keydown', (evt) => {
-    if (evt.keyCode === 27) {
+    if (isEscapeKey(evt)) {
       bigPicture.classList.add('hidden');
       body.classList.remove('modal-open');
     }
