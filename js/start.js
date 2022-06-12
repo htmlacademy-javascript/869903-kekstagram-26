@@ -1,3 +1,4 @@
+import {isEscapeKey} from './util.js';
 //Закрытие и открытие модального окна
 const buttonModal = document.querySelector('#upload-file');
 const popupImg = document.querySelector('.img-upload__overlay');
@@ -13,7 +14,7 @@ closePopupImg.addEventListener('click', () => {
   body.classList.remove('modal-open');
 });
 document.addEventListener('keydown', (evt) => {
-  if (evt.keyCode === 27) {
+  if (isEscapeKey(evt)) {
     popupImg.classList.add('hidden');
     body.classList.remove('modal-open');
   }
