@@ -23,4 +23,4 @@ const shuffle = (array) => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomItemNoRepeat, getRandomItemRepeat, shuffle, getRandomValue,isEscapeKey};
+export {getRandomItemNoRepeat, getRandomItemRepeat, shuffle, getRandomValue, isEscapeKey};
