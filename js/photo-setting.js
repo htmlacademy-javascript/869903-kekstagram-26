@@ -11,6 +11,8 @@ const img = document.querySelector('.img-upload__preview img');
 const imgPreview = document.querySelector('.img-upload__preview');
 const sizeValue = document.querySelector('.scale__control--value');
 const startValue = sizeValue.value;
+const effectLevelValue = document.querySelector('.effect-level__value');
+const sliderElement = document.getElementById('slider');
 
 closePopupImg.addEventListener('click', () => {
   popupImg.classList.add('hidden');
@@ -80,9 +82,6 @@ for (let i = 0; i < effectsRadio.length; i++) {
 }
 
 //Регулировка насыщенности фильтра
-const effectLevelValue = document.querySelector('.effect-level__value');
-const sliderElement = document.getElementById('slider');
-
 effectLevelValue.value = 100;
 
 noUiSlider.create(sliderElement, {
@@ -109,93 +108,93 @@ noUiSlider.create(sliderElement, {
 sliderElement.classList.add('hidden');
 
 for (let i = 0; i < effectsRadio.length; i++){
-  effectsRadio[i].addEventListener('change', (evt) => {
-  if (effectsRadio[i].value === 'chrome') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1
-    });
-    sliderElement.noUiSlider.on('update', () => {
-      effectLevelValue.value = sliderElement.noUiSlider.get();
-      img.style.filter = 'grayscale' + '(' + sliderElement.noUiSlider.get() +')';
-    });
-    sliderElement.classList.remove('hidden');
+  effectsRadio[i].addEventListener('change', () => {
+    if (effectsRadio[i].value === 'chrome') {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1
+        },
+        start: 1,
+        step: 0.1
+      });
+      sliderElement.noUiSlider.on('update', () => {
+        effectLevelValue.value = sliderElement.noUiSlider.get();
+        img.style.filter = `grayscale(${  sliderElement.noUiSlider.get() })`;
+      });
+      sliderElement.classList.remove('hidden');
 
-  } else if (effectsRadio[i].value === 'sepia') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 1
-      },
-      start: 1,
-      step: 0.1
-    });
-    sliderElement.noUiSlider.on('update', () => {
-      img.style.filter = 'sepia' + '(' + sliderElement.noUiSlider.get() +')';
-    });
-    sliderElement.classList.remove('hidden');
+    } else if (effectsRadio[i].value === 'sepia') {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 1
+        },
+        start: 1,
+        step: 0.1
+      });
+      sliderElement.noUiSlider.on('update', () => {
+        img.style.filter = `sepia(${  sliderElement.noUiSlider.get() })`;
+      });
+      sliderElement.classList.remove('hidden');
 
-  } else  if (effectsRadio[i].value === 'marvin') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100
-      },
-      start: 100,
-      step: 1
-    });
-    sliderElement.noUiSlider.on('update', () => {
-      img.style.filter = 'invert' + '(' + sliderElement.noUiSlider.get() +'%)';
-    });
-    sliderElement.classList.remove('hidden');
+    } else  if (effectsRadio[i].value === 'marvin') {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100
+        },
+        start: 100,
+        step: 1
+      });
+      sliderElement.noUiSlider.on('update', () => {
+        img.style.filter = `invert(${  sliderElement.noUiSlider.get() }%)`;
+      });
+      sliderElement.classList.remove('hidden');
 
-  } else if (effectsRadio[i].value === 'phobos') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 3
-      },
-      start: 3,
-      step: 0.1
-    });
-    sliderElement.noUiSlider.on('update', () => {
-      img.style.filter = 'blur' + '(' + sliderElement.noUiSlider.get() +'px)';
-    });
-    sliderElement.classList.remove('hidden');
+    } else if (effectsRadio[i].value === 'phobos') {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 3
+        },
+        start: 3,
+        step: 0.1
+      });
+      sliderElement.noUiSlider.on('update', () => {
+        img.style.filter = `blur(${  sliderElement.noUiSlider.get() }px)`;
+      });
+      sliderElement.classList.remove('hidden');
 
-  } else if (effectsRadio[i].value === 'heat') {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 1,
-        max: 3
-      },
-      start: 3,
-      step: 0.1
-    });
-    sliderElement.noUiSlider.on('update', () => {
-      img.style.filter = 'brightness' + '(' + sliderElement.noUiSlider.get() +')';
-    });
-    sliderElement.classList.remove('hidden');
+    } else if (effectsRadio[i].value === 'heat') {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 1,
+          max: 3
+        },
+        start: 3,
+        step: 0.1
+      });
+      sliderElement.noUiSlider.on('update', () => {
+        img.style.filter = `brightness(${  sliderElement.noUiSlider.get() })`;
+      });
+      sliderElement.classList.remove('hidden');
 
-  } else if (effectsRadio[i].value === 'none') {
-    sliderElement.noUiSlider.on('update', () => {
-      img.style.filter = 'none';
-    });
-    sliderElement.classList.add('hidden');
-  }
-  else {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: 0,
-        max: 100,
-      },
-      step: 1
-    });
-    sliderElement.noUiSlider.set(100);
-  }
+    } else if (effectsRadio[i].value === 'none') {
+      sliderElement.noUiSlider.on('update', () => {
+        img.style.filter = 'none';
+      });
+      sliderElement.classList.add('hidden');
+    }
+    else {
+      sliderElement.noUiSlider.updateOptions({
+        range: {
+          min: 0,
+          max: 100,
+        },
+        step: 1
+      });
+      sliderElement.noUiSlider.set(100);
+    }
   });
 }

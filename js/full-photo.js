@@ -31,11 +31,9 @@ const getCreateComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     commentsFragment.appendChild(getCreateComment(comment));
-      });
+  });
   commentsBlock.appendChild(commentsFragment);
 };
-
-
 
 const openBigPicture = (photo) => {
   bigPicture.classList.remove('hidden');
