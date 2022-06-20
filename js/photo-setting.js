@@ -18,6 +18,8 @@ closePopupImg.addEventListener('click', () => {
   img.classList.remove(img.classList[0]);
   imgPreview.style.transform = '';
   sizeValue.value = startValue;
+  img.style.filter = 'none';
+  sliderElement.classList.add('hidden');
 });
 
 document.addEventListener('keydown', (evt) => {
@@ -28,6 +30,8 @@ document.addEventListener('keydown', (evt) => {
     img.classList.remove(img.classList[0]);
     imgPreview.style.transform = '';
     sizeValue.value = startValue;
+    img.style.filter = 'none';
+    sliderElement.classList.add('hidden');
   }
 });
 oneHashtag.addEventListener('keydown', (evt) => {
@@ -73,4 +77,125 @@ for (let i = 0; i < effectsRadio.length; i++) {
     img.classList.remove(img.classList[0]);
     img.classList.add(effectsPreview[i].classList[1]);
   };
+}
+
+//Регулировка насыщенности фильтра
+const effectLevelValue = document.querySelector('.effect-level__value');
+const sliderElement = document.getElementById('slider');
+
+effectLevelValue.value = 100;
+
+noUiSlider.create(sliderElement, {
+  range: {
+    min: 0,
+    max: 100,
+  },
+  start: 100,
+  step: 1,
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  },
+});
+
+sliderElement.classList.add('hidden');
+
+for (let i = 0; i < effectsRadio.length; i++){
+  effectsRadio[i].addEventListener('change', (evt) => {
+  if (effectsRadio[i].value === 'chrome') {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1
+      },
+      start: 1,
+      step: 0.1
+    });
+    sliderElement.noUiSlider.on('update', () => {
+      effectLevelValue.value = sliderElement.noUiSlider.get();
+      img.style.filter = 'grayscale' + '(' + sliderElement.noUiSlider.get() +')';
+    });
+    sliderElement.classList.remove('hidden');
+
+  } else if (effectsRadio[i].value === 'sepia') {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 1
+      },
+      start: 1,
+      step: 0.1
+    });
+    sliderElement.noUiSlider.on('update', () => {
+      img.style.filter = 'sepia' + '(' + sliderElement.noUiSlider.get() +')';
+    });
+    sliderElement.classList.remove('hidden');
+
+  } else  if (effectsRadio[i].value === 'marvin') {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 100
+      },
+      start: 100,
+      step: 1
+    });
+    sliderElement.noUiSlider.on('update', () => {
+      img.style.filter = 'invert' + '(' + sliderElement.noUiSlider.get() +'%)';
+    });
+    sliderElement.classList.remove('hidden');
+
+  } else if (effectsRadio[i].value === 'phobos') {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 3
+      },
+      start: 3,
+      step: 0.1
+    });
+    sliderElement.noUiSlider.on('update', () => {
+      img.style.filter = 'blur' + '(' + sliderElement.noUiSlider.get() +'px)';
+    });
+    sliderElement.classList.remove('hidden');
+
+  } else if (effectsRadio[i].value === 'heat') {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 1,
+        max: 3
+      },
+      start: 3,
+      step: 0.1
+    });
+    sliderElement.noUiSlider.on('update', () => {
+      img.style.filter = 'brightness' + '(' + sliderElement.noUiSlider.get() +')';
+    });
+    sliderElement.classList.remove('hidden');
+
+  } else if (effectsRadio[i].value === 'none') {
+    sliderElement.noUiSlider.on('update', () => {
+      img.style.filter = 'none';
+    });
+    sliderElement.classList.add('hidden');
+  }
+  else {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: 0,
+        max: 100,
+      },
+      step: 1
+    });
+    sliderElement.noUiSlider.set(100);
+  }
+  });
 }

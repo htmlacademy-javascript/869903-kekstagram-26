@@ -31,15 +31,17 @@ const getCreateComments = (comments) => {
   const commentsFragment = document.createDocumentFragment();
   comments.forEach((comment) => {
     commentsFragment.appendChild(getCreateComment(comment));
-  });
+      });
   commentsBlock.appendChild(commentsFragment);
 };
+
+
 
 const openBigPicture = (photo) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsCount.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img img').src = photo.url;
   bigPicture.querySelector('.likes-count').textContent = photo.likes;
   bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
