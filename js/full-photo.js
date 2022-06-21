@@ -38,8 +38,8 @@ const getCreateComments = (comments) => {
 const openBigPicture = (photo) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsCount.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
   bigPicture.querySelector('.big-picture__img img').src = photo.url;
   bigPicture.querySelector('.likes-count').textContent = photo.likes;
   bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
