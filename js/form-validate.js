@@ -1,5 +1,5 @@
-import {showAlert} from "./util.js";
-import {sendData} from "./api.js";
+import {showAlert} from './util.js';
+import {sendData} from './api.js';
 
 const MAX_LENGTH = 20;
 const MAX_QUANTITY = 5;
@@ -77,13 +77,13 @@ const setUserFormSubmit = (onSuccess) => {
     const isValid = pristine.validate();
     if (isValid) {
       blockSendButton();
-        sendData(
-          () => onSuccess(),
-          () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
-          new FormData(evt.target),
-        );
+      sendData(
+        () => onSuccess(),
+        () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+        new FormData(evt.target),
+      );
     }
   });
-}
+};
 
 export {oneHashtag, setUserFormSubmit, buttonSubmit};

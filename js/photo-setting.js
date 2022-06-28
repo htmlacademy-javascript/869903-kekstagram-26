@@ -25,7 +25,7 @@ const createSuccessModal = () => {
   const closeSuccessModalButton = successModalBlock.querySelector('.success__button');
   closeSuccessModalButton.addEventListener('click', () => {
     successModalBlock.remove();
-  })
+  });
 };
 
 const createErrorModal = () => {

@@ -1,5 +1,5 @@
-import {createSuccessModal, createErrorModal, closeModal, description} from "./photo-setting.js";
-import {oneHashtag, buttonSubmit} from "./form-validate.js";
+import {createSuccessModal, createErrorModal, closeModal, description} from './photo-setting.js';
+import {oneHashtag, buttonSubmit} from './form-validate.js';
 
 
 const  geData = (onSuccess) => {
@@ -8,7 +8,7 @@ const  geData = (onSuccess) => {
     .then((photo) => {
       onSuccess(photo);
     });
-}
+};
 
 const sendData = (onSuccess, onFail, body) => {
   fetch('https://26.javascript.pages.academy/kekstagram',

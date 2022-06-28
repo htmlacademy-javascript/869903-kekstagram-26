@@ -1,9 +1,7 @@
-import {createObjectPhotos} from './create-random-array.js';
 import {openBigPicture} from './full-photo.js';
 
 const picturesElementsList = document.querySelector('.pictures');
 const similarPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const similarPhotos = createObjectPhotos();
 const similarListFragment = document.createDocumentFragment();
 
 const createSimilarList = (similarPhotos) => {
@@ -19,6 +17,6 @@ const createSimilarList = (similarPhotos) => {
     similarListFragment.appendChild(photoElement);
     picturesElementsList.appendChild(similarListFragment);
   });
-}
+};
 
-export {picturesElementsList, similarPhotos, createSimilarList};
+export {picturesElementsList, createSimilarList};
