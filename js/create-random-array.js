@@ -2,7 +2,7 @@ import {getRandomItemNoRepeat, getRandomItemRepeat, shuffle, getRandomValue} fro
 //Генерируем случайные объекты
 const SIMILAR_OBJECT_COUNT = 25;
 
-const DESC = [
+const DESCRIPTIONS = [
   'Сидим с Кексом на пляже, учимся делать рандом',
   'Ловим мух',
   'Готовимся к полуночным тыг-дык'
@@ -11,7 +11,7 @@ const DESC = [
 const MIN_VALUE_LIKES = 15;
 const MAX_VALUE_LIKES = 200;
 
-const MESSAGE = [
+const MESSAGES = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -20,7 +20,7 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const NAME = [
+const NAMES = [
   'Мария',
   'Федор',
   'Иван'
@@ -39,14 +39,14 @@ for (let i = 0; i < SIMILAR_OBJECT_COUNT; i++) {
 const createComments = () => ({
   id: getRandomItemNoRepeat(idComments),
   avatar: `img/avatar-${getRandomValue(1, 6)}.svg`,
-  message: getRandomItemRepeat(MESSAGE),
-  name: getRandomItemRepeat(NAME),
+  message: getRandomItemRepeat(MESSAGES),
+  name: getRandomItemRepeat(NAMES),
 });
 
 const createObjectPhoto = () => ({
   id: getRandomItemNoRepeat(mainId),
   url: `photos/${getRandomItemNoRepeat(photoUrl)}.jpg`,
-  description: getRandomItemRepeat(DESC),
+  description: getRandomItemRepeat(DESCRIPTIONS),
   likes: getRandomValue(MIN_VALUE_LIKES, MAX_VALUE_LIKES),
   comments: Array.from({ length: getRandomValue(MIN_VALUE_LIKES, MAX_VALUE_LIKES) }, createComments),
 });
