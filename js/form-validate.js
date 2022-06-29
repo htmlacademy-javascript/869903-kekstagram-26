@@ -1,7 +1,11 @@
+import {showAlert} from './util.js';
+import {sendData} from './api.js';
+
 const MAX_LENGTH = 20;
 const MAX_QUANTITY = 5;
 const form = document.querySelector('.img-upload__form');
 const oneHashtag = document.querySelector('.text__hashtags');
+const buttonSubmit = document.querySelector('.img-upload__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -47,11 +51,13 @@ const validateHashtagsSymbols = (value) => {
   const re = /^#[A-Za-zA-Яа-яЁё0-9]{1,19}/;
 
   for (const hashtag of arrHashtags) {
-    if (!re.test(hashtag)){
-      return false;
+    if (oneHashtag.value === '') {
+      return true;
+    } else if (re.test(hashtag)){
+      return true;
     }
   }
-  return true;
+  return false;
 };
 
 pristine.addValidator(oneHashtag, validateHashtagsQuantity, 'допустимо не более 5 хештегов');
@@ -60,15 +66,23 @@ pristine.addValidator(oneHashtag, validateHashtagsOriginal, 'хештеги не
 pristine.addValidator(oneHashtag, validateHashtagsSymbols, 'хештег должен начинаться с # и должнен состоять из букв и чисел');
 
 function blockSendButton() {
-  const button = document.querySelector('.img-upload__submit');
-  button.setAttribute('disabled', 'disabled');
-  button.textContent = 'Публикую!';
+  buttonSubmit.setAttribute('disabled', 'disabled');
+  buttonSubmit.textContent = 'Публикую!';
 }
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    blockSendButton();
-  }
-});
-export {oneHashtag};
+const setUserFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSendButton();
+      sendData(
+        () => onSuccess(),
+        () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export {oneHashtag, setUserFormSubmit, buttonSubmit};

@@ -13,8 +13,41 @@ const sizeValue = document.querySelector('.scale__control--value');
 const startValue = sizeValue.value;
 const effectLevelValue = document.querySelector('.effect-level__value');
 const sliderElement = document.getElementById('slider');
+const successModalTemplate = document.getElementById('success').content;
+const errorModalTemplate = document.getElementById('error').content;
 
-closePopupImg.addEventListener('click', () => {
+
+const createSuccessModal = () => {
+  const successModalBlock = document.createElement('div');
+  const successModal = successModalTemplate.cloneNode(true);
+  successModalBlock.appendChild(successModal);
+  body.appendChild(successModalBlock);
+  const closeSuccessModalButton = successModalBlock.querySelector('.success__button');
+  closeSuccessModalButton.addEventListener('click', () => {
+    successModalBlock.remove();
+  });
+};
+
+const createErrorModal = () => {
+  const errorModalBlock = document.createElement('div');
+  const errorModal = errorModalTemplate.cloneNode(true);
+  errorModalBlock.appendChild(errorModal);
+  body.appendChild(errorModalBlock);
+  const closeErrorModalButton = errorModalBlock.querySelector('.error__button');
+  closeErrorModalButton.addEventListener('click', () => {
+    errorModalBlock.remove();
+  });
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      errorModalBlock.remove();
+    }
+  });
+  body.addEventListener('click', () => {
+    errorModalBlock.remove();
+  });
+};
+
+const closeModal = () => {
   popupImg.classList.add('hidden');
   body.classList.remove('modal-open');
   img.classList.remove(img.classList[0]);
@@ -22,18 +55,16 @@ closePopupImg.addEventListener('click', () => {
   sizeValue.value = startValue;
   img.style.filter = 'none';
   sliderElement.classList.add('hidden');
+};
+
+closePopupImg.addEventListener('click', () => {
+  closeModal();
 });
+
 
 document.addEventListener('keydown', (evt) => {
   if (isEscapeKey(evt)) {
-    document.querySelector('.text__hashtags').blur();
-    popupImg.classList.add('hidden');
-    body.classList.remove('modal-open');
-    img.classList.remove(img.classList[0]);
-    imgPreview.style.transform = '';
-    sizeValue.value = startValue;
-    img.style.filter = 'none';
-    sliderElement.classList.add('hidden');
+    closeModal();
   }
 });
 oneHashtag.addEventListener('keydown', (evt) => {
@@ -198,3 +229,5 @@ for (let i = 0; i < effectsRadio.length; i++){
     }
   });
 }
+
+export {closeModal, createSuccessModal, createErrorModal, description};
