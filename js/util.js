@@ -1,5 +1,7 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
+const SET_TIMEOUT_ALERT = 3000;
+
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
   alertContainer.style.zIndex = '100';
@@ -18,7 +20,7 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 3000);
+  }, SET_TIMEOUT_ALERT);
 };
 
 export {isEscapeKey, showAlert};

@@ -7,7 +7,6 @@ const form = document.querySelector('.img-upload__form');
 const oneHashtag = document.querySelector('.text__hashtags');
 const buttonSubmit = document.querySelector('.img-upload__submit');
 
-
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
   errorClass: 'img-upload__text--invalid',
@@ -31,8 +30,6 @@ const validateHashtagsLength = (value) => {
   for (const hashtag of arrHashtags) {
     if (hashtag.length >= MAX_LENGTH) {
       return false;
-    } else if (hashtag.length === 0) {
-      return true;
     }
   }
   return true;
@@ -54,11 +51,13 @@ const validateHashtagsSymbols = (value) => {
   const re = /^#[A-Za-zA-Яа-яЁё0-9]{1,19}/;
 
   for (const hashtag of arrHashtags) {
-    if (!re.test(hashtag)){
-      return false;
+    if (oneHashtag.value === '') {
+      return true;
+    } else if (re.test(hashtag)){
+      return true;
     }
   }
-  return true;
+  return false;
 };
 
 pristine.addValidator(oneHashtag, validateHashtagsQuantity, 'допустимо не более 5 хештегов');
