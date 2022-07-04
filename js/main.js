@@ -4,6 +4,7 @@ import {setUserFormSubmit} from './form-validate.js';
 import {initPhotoFilter} from './miniatures.js';
 import './full-photo.js';
 import {geData} from './api.js';
+import './upload-img.js';
 
 geData((photo) => {
   initPhotoFilter(photo);
