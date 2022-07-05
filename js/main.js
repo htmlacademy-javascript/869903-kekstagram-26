@@ -1,4 +1,3 @@
-import './create-random-array.js';
 import {closeModal} from './photo-setting.js';
 import {setUserFormSubmit} from './form-validate.js';
 import {initPhotoFilter} from './miniatures.js';

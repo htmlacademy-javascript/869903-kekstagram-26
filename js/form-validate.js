@@ -65,7 +65,7 @@ pristine.addValidator(oneHashtag, validateHashtagsLength, 'допустимая 
 pristine.addValidator(oneHashtag, validateHashtagsOriginal, 'хештеги не должны повторяться');
 pristine.addValidator(oneHashtag, validateHashtagsSymbols, 'хештег должен начинаться с # и должнен состоять из букв и чисел');
 
-function blockSendButton() {
+function createBlockSendButton() {
   buttonSubmit.setAttribute('disabled', 'disabled');
   buttonSubmit.textContent = 'Публикую!';
 }
@@ -75,7 +75,7 @@ const setUserFormSubmit = (onSuccess) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      blockSendButton();
+      createBlockSendButton();
       sendData(
         () => onSuccess(),
         () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
