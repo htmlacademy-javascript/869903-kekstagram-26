@@ -1,5 +1,6 @@
 import {isEscapeKey} from './util.js';
 
+const COMMENT_LOAD = 5;
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
@@ -35,6 +36,44 @@ const getCreateComments = (comments) => {
   commentsBlock.appendChild(commentsFragment);
 };
 
+const fillComments = () => {
+  const socialComments = bigPicture.querySelectorAll('.social__comment');//находим все li с коментариями, образуется массив
+
+  for (let i = COMMENT_LOAD; i < socialComments.length; i++) {
+    socialComments[i].style.display = 'none';
+  }//говорим что с 5 пункта у всех комментариев дисплей нон
+
+  if (socialComments.length <= COMMENT_LOAD) {//если все комментарии показаны
+    bigPicture.querySelector('.comments-loader').classList.add('hidden');
+    bigPicture.querySelector('.social__comment-count').innerHTML = `${socialComments.length} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+  } else {
+    let commentCounter = COMMENT_LOAD;
+    bigPicture.querySelector('.social__comment-count').innerHTML = `${commentCounter} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+
+    const commentsCountValue = () => {
+      commentCounter += COMMENT_LOAD;
+      if (commentCounter <= socialComments.length) {
+        for (let i = commentCounter - COMMENT_LOAD; i < commentCounter; i++) {
+          socialComments[i].style.display = '';
+        }
+        bigPicture.querySelector('.social__comment-count').innerHTML = `${commentCounter} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+      }
+      if (commentCounter >= socialComments.length) {
+        for (let i = commentCounter - COMMENT_LOAD; i < socialComments.length; i++) {
+          socialComments[i].style.display = '';
+        }
+        bigPicture.querySelector('.comments-loader').classList.add('hidden');
+        bigPicture.querySelector('.comments-loader').removeEventListener('click', commentsCountValue);
+      }
+      if (commentCounter > socialComments.length) {
+        bigPicture.querySelector('.social__comment-count').innerHTML = `${socialComments.length} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+      }
+    };
+
+    bigPicture.querySelector('.comments-loader').addEventListener('click', commentsCountValue);
+  }
+};
+
 const openBigPicture = (photo) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -46,6 +85,7 @@ const openBigPicture = (photo) => {
   bigPicture.querySelector('.social__caption').textContent = photo.description;
 
   getCreateComments(photo.comments);
+  fillComments();
 
   closeButton.addEventListener('click', () => {
     bigPicture.classList.add('hidden');
