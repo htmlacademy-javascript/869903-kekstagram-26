@@ -91,13 +91,14 @@ const openBigPicture = (photo) => {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     commentsCount.classList.remove('hidden');
-  });
+  }, {once: true});
   document.addEventListener('keydown', (evt) => {
     if (isEscapeKey(evt)) {
       bigPicture.classList.add('hidden');
       body.classList.remove('modal-open');
+      document.removeEventListener('keydown', openBigPicture);
     }
-  });
+  }, {once: true});
 };
 
 export {openBigPicture};

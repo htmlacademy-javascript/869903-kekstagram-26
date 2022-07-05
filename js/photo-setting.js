@@ -8,7 +8,7 @@ const closePopupImg = document.querySelector('.img-upload__cancel');
 const body = document.querySelector('body');
 const description = document.querySelector('.text__description');
 const img = document.querySelector('.img-upload__preview img');
-const imgPreview = document.querySelector('.img-upload__preview');
+const imgPreview = document.querySelector('.img-upload__preview img');
 const sizeValue = document.querySelector('.scale__control--value');
 const startValue = sizeValue.value;
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -87,19 +87,20 @@ buttonModal.addEventListener('click', () => {
 const less = document.querySelector('.scale__control--smaller');
 const more = document.querySelector('.scale__control--bigger');
 
-less.onclick = function () {
+less.addEventListener('click', () => {
   if (parseInt(sizeValue.value, 10) > 25) {
     sizeValue.value = `${parseInt(sizeValue.value, 10) - 25  }%`;
     imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
-};
-more.onclick = function () {
+});
+
+more.addEventListener('click', () => {
 
   if (parseInt(sizeValue.value, 10) < 100) {
     sizeValue.value = `${parseInt(sizeValue.value, 10) + 25  }%`;
     imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
-};
+});
 
 //Добавляем эффект на картинку
 const effectsRadio = document.querySelectorAll('.effects__radio');
