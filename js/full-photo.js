@@ -37,13 +37,13 @@ const getCreateComments = (comments) => {
 };
 
 const fillComments = () => {
-  const socialComments = bigPicture.querySelectorAll('.social__comment');//находим все li с коментариями, образуется массив
+  const socialComments = bigPicture.querySelectorAll('.social__comment');
 
   for (let i = COMMENT_LOAD; i < socialComments.length; i++) {
     socialComments[i].style.display = 'none';
-  }//говорим что с 5 пункта у всех комментариев дисплей нон
+  }
 
-  if (socialComments.length <= COMMENT_LOAD) {//если все комментарии показаны
+  if (socialComments.length <= COMMENT_LOAD) {
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
     bigPicture.querySelector('.social__comment-count').innerHTML = `${socialComments.length} из <span class="comments-count">${socialComments.length}</span> комментариев`;
   } else {
