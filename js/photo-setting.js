@@ -1,6 +1,34 @@
 import {isEscapeKey} from './util.js';
 import {oneHashtag} from './form-validate.js';
 
+const SIZE_STEP = 25;
+const MIN_SIZE_PHOTO = 25;
+const MAX_SIZE_PHOTO = 100;
+const MIN_RANGE_DEFAULT = 1;
+const MAX_RANGE_DEFAULT = 100;
+const START_STEP_DEFAULT = 100;
+const STEP_DEFAULT = 1;
+const MIN_RANGE_CHROME = 0;
+const MAX_RANGE_CHROME = 1;
+const START_STEP_CHROME = 1;
+const STEP_CHROME = 0.1;
+const MIN_RANGE_SEPIA = 0;
+const MAX_RANGE_SEPIA = 1;
+const START_STEP_SEPIA = 1;
+const STEP_SEPIA = 0.1;
+const MIN_RANGE_MARVIN = 1;
+const MAX_RANGE_MARVIN = 100;
+const START_STEP_MARVIN = 100;
+const STEP_MARVIN = 1;
+const MIN_RANGE_PHOBOS = 0;
+const MAX_RANGE_PHOBOS = 3;
+const START_STEP_PHOBOS = 3;
+const STEP_PHOBOS = 0.1;
+const MIN_RANGE_HEAT = 1;
+const MAX_RANGE_HEAT = 3;
+const START_STEP_HEAT = 3;
+const STEP_HEAT = 0.1;
+
 //Закрытие и открытие модального окна
 const buttonModal = document.querySelector('#upload-file');
 const popupImg = document.querySelector('.img-upload__overlay');
@@ -88,16 +116,16 @@ const less = document.querySelector('.scale__control--smaller');
 const more = document.querySelector('.scale__control--bigger');
 
 less.addEventListener('click', () => {
-  if (parseInt(sizeValue.value, 10) > 25) {
-    sizeValue.value = `${parseInt(sizeValue.value, 10) - 25  }%`;
+  if (parseInt(sizeValue.value, 10) > MIN_SIZE_PHOTO) {
+    sizeValue.value = `${parseInt(sizeValue.value, 10) - SIZE_STEP  }%`;
     imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
 });
 
 more.addEventListener('click', () => {
 
-  if (parseInt(sizeValue.value, 10) < 100) {
-    sizeValue.value = `${parseInt(sizeValue.value, 10) + 25  }%`;
+  if (parseInt(sizeValue.value, 10) < MAX_SIZE_PHOTO) {
+    sizeValue.value = `${parseInt(sizeValue.value, 10) + SIZE_STEP  }%`;
     imgPreview.style.transform = `scale(${  sizeValue.value  })`;
   }
 });
@@ -118,11 +146,11 @@ effectLevelValue.value = 100;
 
 noUiSlider.create(sliderElement, {
   range: {
-    min: 0,
-    max: 100,
+    min: MIN_RANGE_DEFAULT,
+    max: MAX_RANGE_DEFAULT,
   },
-  start: 100,
-  step: 1,
+  start: START_STEP_DEFAULT,
+  step: STEP_DEFAULT,
   connect: 'lower',
   format: {
     to: function (value) {
@@ -144,11 +172,11 @@ for (let i = 0; i < effectsRadio.length; i++){
     if (effectsRadio[i].value === 'chrome') {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 1
+          min: MIN_RANGE_CHROME,
+          max: MAX_RANGE_CHROME
         },
-        start: 1,
-        step: 0.1
+        start: START_STEP_CHROME,
+        step: STEP_CHROME
       });
       sliderElement.noUiSlider.on('update', () => {
         effectLevelValue.value = sliderElement.noUiSlider.get();
@@ -159,11 +187,11 @@ for (let i = 0; i < effectsRadio.length; i++){
     } else if (effectsRadio[i].value === 'sepia') {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 1
+          min: MIN_RANGE_SEPIA,
+          max: MAX_RANGE_SEPIA
         },
-        start: 1,
-        step: 0.1
+        start: START_STEP_SEPIA,
+        step: STEP_SEPIA
       });
       sliderElement.noUiSlider.on('update', () => {
         img.style.filter = `sepia(${  sliderElement.noUiSlider.get() })`;
@@ -173,11 +201,11 @@ for (let i = 0; i < effectsRadio.length; i++){
     } else  if (effectsRadio[i].value === 'marvin') {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 100
+          min: MIN_RANGE_MARVIN,
+          max: MAX_RANGE_MARVIN,
         },
-        start: 100,
-        step: 1
+        start: START_STEP_MARVIN,
+        step: STEP_MARVIN,
       });
       sliderElement.noUiSlider.on('update', () => {
         img.style.filter = `invert(${  sliderElement.noUiSlider.get() }%)`;
@@ -187,11 +215,11 @@ for (let i = 0; i < effectsRadio.length; i++){
     } else if (effectsRadio[i].value === 'phobos') {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 3
+          min: MIN_RANGE_PHOBOS,
+          max: MAX_RANGE_PHOBOS
         },
-        start: 3,
-        step: 0.1
+        start: START_STEP_PHOBOS,
+        step: STEP_PHOBOS
       });
       sliderElement.noUiSlider.on('update', () => {
         img.style.filter = `blur(${  sliderElement.noUiSlider.get() }px)`;
@@ -201,11 +229,11 @@ for (let i = 0; i < effectsRadio.length; i++){
     } else if (effectsRadio[i].value === 'heat') {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 1,
-          max: 3
+          min: MIN_RANGE_HEAT,
+          max: MAX_RANGE_HEAT
         },
-        start: 3,
-        step: 0.1
+        start: START_STEP_HEAT,
+        step: STEP_HEAT
       });
       sliderElement.noUiSlider.on('update', () => {
         img.style.filter = `brightness(${  sliderElement.noUiSlider.get() })`;
@@ -221,10 +249,10 @@ for (let i = 0; i < effectsRadio.length; i++){
     else {
       sliderElement.noUiSlider.updateOptions({
         range: {
-          min: 0,
-          max: 100,
+          min: MIN_RANGE_DEFAULT,
+          max: MAX_RANGE_DEFAULT,
         },
-        step: 1
+        step: STEP_DEFAULT
       });
       sliderElement.noUiSlider.set(100);
     }
