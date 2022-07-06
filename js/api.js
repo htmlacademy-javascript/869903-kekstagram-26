@@ -2,7 +2,7 @@ import {createSuccessModal, createErrorModal, closeModal, description} from './p
 import {oneHashtag, buttonSubmit} from './form-validate.js';
 
 
-const  geData = (onSuccess) => {
+const  getData = (onSuccess) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) => response.json())
     .then((photo) => {
@@ -37,4 +37,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {geData, sendData};
+export {getData, sendData};

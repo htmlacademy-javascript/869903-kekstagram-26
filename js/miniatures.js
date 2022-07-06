@@ -1,6 +1,7 @@
 import {openBigPicture} from './full-photo.js';
 import {debounce} from './util.js';
 
+const MAX_RANDOM_PHOTOS = 10;
 const picturesElementsList = document.querySelector('.pictures');
 const similarPhotosTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const similarListFragment = document.createDocumentFragment();
@@ -56,7 +57,7 @@ const initPhotoFilter = (photo) => {
       }
       return array;
     };
-    const randomPhotoArray = shuffle(randomPhotos).slice(0, 10);
+    const randomPhotoArray = shuffle(randomPhotos).slice(0, MAX_RANDOM_PHOTOS);
     createSimilarList(randomPhotoArray);
   });
 

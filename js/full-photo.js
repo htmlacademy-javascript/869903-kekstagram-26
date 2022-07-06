@@ -45,18 +45,21 @@ const fillComments = () => {
 
   if (socialComments.length <= COMMENT_LOAD) {
     bigPicture.querySelector('.comments-loader').classList.add('hidden');
-    bigPicture.querySelector('.social__comment-count').innerHTML = `${socialComments.length} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+    bigPicture.querySelector('.comments-show').textContent = socialComments.length;
+    bigPicture.querySelector('.comments-count').textContent = socialComments.length;
+
   } else {
     let commentCounter = COMMENT_LOAD;
-    bigPicture.querySelector('.social__comment-count').innerHTML = `${commentCounter} из <span class="comments-count">${socialComments.length}</span> комментариев`;
-
+    bigPicture.querySelector('.comments-show').textContent = commentCounter;
+    bigPicture.querySelector('.comments-count').textContent = socialComments.length;
     const commentsCountValue = () => {
       commentCounter += COMMENT_LOAD;
       if (commentCounter <= socialComments.length) {
         for (let i = commentCounter - COMMENT_LOAD; i < commentCounter; i++) {
           socialComments[i].style.display = '';
         }
-        bigPicture.querySelector('.social__comment-count').innerHTML = `${commentCounter} из <span class="comments-count">${socialComments.length}</span> комментариев`;
+        bigPicture.querySelector('.comments-show').textContent = commentCounter;
+        bigPicture.querySelector('.comments-count').textContent = socialComments.length;
       }
       if (commentCounter >= socialComments.length) {
         for (let i = commentCounter - COMMENT_LOAD; i < socialComments.length; i++) {
@@ -66,8 +69,8 @@ const fillComments = () => {
         bigPicture.querySelector('.comments-loader').removeEventListener('click', commentsCountValue);
       }
       if (commentCounter > socialComments.length) {
-        bigPicture.querySelector('.social__comment-count').innerHTML = `${socialComments.length} из <span class="comments-count">${socialComments.length}</span> комментариев`;
-      }
+        bigPicture.querySelector('.comments-show').textContent = socialComments.length;
+        bigPicture.querySelector('.comments-count').textContent = socialComments.length;      }
     };
 
     bigPicture.querySelector('.comments-loader').addEventListener('click', commentsCountValue);
